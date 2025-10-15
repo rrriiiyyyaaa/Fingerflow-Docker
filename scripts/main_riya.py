@@ -65,6 +65,10 @@ def minutia_plot(img, mv):
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 for p in base.glob("*.png"):
+    print(f"Processing {p}")
+    out_ = json_ / (str(p.stem) + ".json")
+    if out_.exists():
+        continue
     image = cv2.imread(str(p))
 
     extracted_minutiae = extractor.extract_minutiae(image)
@@ -72,7 +76,7 @@ for p in base.glob("*.png"):
     minutiae = extracted_minutiae['minutiae']
     # write to json
     mv = minutiae.to_dict(orient='records')
-    with open(str(json_ / (str(p.stem) + ".json")), 'w') as f:
+    with open(str(out_), 'w') as f:
         json.dump(mv, f, indent=4)
 
     # overlay minutiae on image and store in overlay_ folder
@@ -80,4 +84,5 @@ for p in base.glob("*.png"):
     cv2.imwrite(str(overlay_ / p.name), overlay_image)
 
 from time import sleep
+print("Sleeping for 100 seconds to allow inspection of results...")
 sleep(100)
