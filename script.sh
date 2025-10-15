@@ -2,4 +2,9 @@
 docker build -t fingerflow_riya .
 
 
-docker run -it -v $(pwd)/models:/home/models -v $(pwd)/db:/home/db fingerflow_riya python main.py
+docker run -it \
+-v ./models:/home/models \
+-v ./db:/home/db \
+-v ./scripts:/home/scripts \
+fingerflow_riya \
+python scripts/main_riya.py

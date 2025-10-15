@@ -20,18 +20,13 @@ COPY requirements.txt ./requirements.txt
 RUN pip --no-cache-dir install --upgrade pip && \
     pip --no-cache-dir install -r requirements.txt
 
-
-
-
-RUN mkdir -p /home/models
-
-RUN mkdir -p /home/db
-
+COPY main_riya.py ./
 
 # mount the db folder in the current directory inside the container
 VOLUME ["/home/db"]
 
 VOLUME [ "/home/models" ]
+
 
 
 
